@@ -1,0 +1,77 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Swimmer {
+  id Int @id @default(autoincrement())
+  email String @unique
+  age Int 
+  name String
+  pace100 Int //pace in seconds
+  pace1000 Int
+  level Int //from 1 to 10
+  trainings Training[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Excercise {
+  id Int @id @default(autoincrement())
+  Summary String @unique
+  trainingFocuses trainingFocus[]
+  minRecommendedLevel Int
+  maxRecommendedLevel Int
+  minLength Int //in meters
+  maxLength Int //in meters
+  trainingParts TrainingPart[]
+  equipment Equipment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Training {
+  id Int @id @default(autoincrement())
+  swimmer Swimmer @relation(fields: [swimmerId], references: [id])
+  swimmerId Int
+  trainingParts TrainingPart[]
+  status Status
+  createdAt DateTime @default(now())
+  doneAt DateTime?
+}
+
+model TrainingPart {
+  id Int @id @default(autoincrement())
+  training Training @relation(fields: [trainingId], references: [id])
+  trainingId Int
+  excercise Excercise @relation(fields: [excerciseId], references: [id])
+  excerciseId Int
+  length Int
+}
+
+enum trainingFocus {
+  LEGS
+  ARMS
+  BALANCE
+  POWER
+  BODY_POSITION
+  HANDS_CHANGE
+}
+
+enum Equipment {
+  FINS
+  BOUY
+  HANDS
+}
+
+enum Status {
+  CREATED
+  DONE
+}
