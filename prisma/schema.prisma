@@ -23,40 +23,43 @@ model Swimmer {
   updatedAt DateTime @updatedAt
 }
 
-model Excercise {
+model Exercise {
   id Int @id @default(autoincrement())
   Summary String @unique
-  trainingFocuses trainingFocus[]
+  trainingFocuses TrainingFocus[]
   minRecommendedLevel Int
   maxRecommendedLevel Int
   minLength Int //in meters
   maxLength Int //in meters
-  trainingParts TrainingPart[]
+  TrainingExercises TrainingExercise[]
   equipment Equipment[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  appliedToStages TrainingStage[]
+  paceMultiplier Float //decrease of pace for time calculation
 }
 
 model Training {
   id Int @id @default(autoincrement())
   swimmer Swimmer @relation(fields: [swimmerId], references: [id])
   swimmerId Int
-  trainingParts TrainingPart[]
+  TrainingExercises TrainingExercise[]
   status Status
   createdAt DateTime @default(now())
   doneAt DateTime?
 }
 
-model TrainingPart {
+model TrainingExercise {
   id Int @id @default(autoincrement())
   training Training @relation(fields: [trainingId], references: [id])
   trainingId Int
-  excercise Excercise @relation(fields: [excerciseId], references: [id])
-  excerciseId Int
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId Int
   length Int
+  trainingStage TrainingStage
 }
 
-enum trainingFocus {
+enum TrainingFocus {
   LEGS
   ARMS
   BALANCE
@@ -74,4 +77,10 @@ enum Equipment {
 enum Status {
   CREATED
   DONE
+}
+
+enum TrainingStage {
+  WARM_UP
+  TECHNIQUE
+  SPEED_SERIES
 }

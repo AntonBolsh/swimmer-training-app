@@ -9,14 +9,15 @@ import {
 } from '@nestjs/common';
 import { TrainingsService } from './trainings.service';
 import { Prisma } from 'generated/prisma';
+import { ICreateTrainingInput } from './interfaces/trainings-interfaces';
 
 @Controller('trainings')
 export class TrainingsController {
   constructor(private readonly trainingsService: TrainingsService) {}
 
   @Post()
-  create(@Body() createTrainingsInput) {
-    return this.trainingsService.create(createTrainingsInput);
+  generate(@Body() createTrainingsInput: ICreateTrainingInput) {
+    return this.trainingsService.generate(createTrainingsInput);
   }
 
   @Get()

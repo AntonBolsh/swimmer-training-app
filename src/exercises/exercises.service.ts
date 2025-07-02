@@ -6,35 +6,35 @@ import { DatabaseService } from 'src/database/database.service';
 export class ExercisesService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createExcerciseDto: Prisma.ExcerciseCreateInput) {
-    return this.databaseService.excercise.create({
-      data: createExcerciseDto,
+  async create(createExerciseDto: Prisma.ExerciseCreateInput) {
+    return this.databaseService.exercise.create({
+      data: createExerciseDto,
     });
   }
 
   async findAll() {
-    return this.databaseService.excercise.findMany();
+    return this.databaseService.exercise.findMany();
   }
 
   async findOne(id: number) {
-    return this.databaseService.excercise.findUnique({
+    return this.databaseService.exercise.findUnique({
       where: {
         id,
       },
     });
   }
 
-  async update(id: number, updateExcerciseDto: Prisma.ExcerciseUpdateInput) {
-    return this.databaseService.excercise.update({
+  async update(id: number, updateExerciseDto: Prisma.ExerciseUpdateInput) {
+    return this.databaseService.exercise.update({
       where: {
         id,
       },
-      data: updateExcerciseDto,
+      data: updateExerciseDto,
     });
   }
 
   async remove(id: number) {
-    return this.databaseService.excercise.delete({
+    return this.databaseService.exercise.delete({
       where: {
         id,
       },

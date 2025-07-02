@@ -15,7 +15,7 @@ export class ExercisesController {
   constructor(private readonly exercisesService: ExercisesService) {}
 
   @Post()
-  create(@Body() createExerciseDto: Prisma.ExcerciseCreateInput) {
+  create(@Body() createExerciseDto: Prisma.ExerciseCreateInput) {
     return this.exercisesService.create(createExerciseDto);
   }
 
@@ -32,7 +32,7 @@ export class ExercisesController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateExerciseDto: Prisma.ExcerciseCreateInput,
+    @Body() updateExerciseDto: Prisma.ExerciseCreateInput,
   ) {
     return this.exercisesService.update(+id, updateExerciseDto);
   }
