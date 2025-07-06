@@ -43,7 +43,7 @@ model Training {
   id Int @id @default(autoincrement())
   swimmer Swimmer @relation(fields: [swimmerId], references: [id])
   swimmerId Int
-  TrainingExercises TrainingExercise[]
+  trainingExercises TrainingExercise[]
   status Status
   createdAt DateTime @default(now())
   doneAt DateTime?
