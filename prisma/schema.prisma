@@ -25,13 +25,13 @@ model Swimmer {
 
 model Exercise {
   id Int @id @default(autoincrement())
-  Summary String @unique
+  summary String @unique
   trainingFocuses TrainingFocus[]
   minRecommendedLevel Int
   maxRecommendedLevel Int
   minLength Int //in meters
   maxLength Int //in meters
-  TrainingExercises TrainingExercise[]
+  trainingExercises TrainingExercise[]
   equipment Equipment[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

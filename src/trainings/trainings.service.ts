@@ -12,7 +12,7 @@ export class TrainingsService {
     constructor(private readonly databaseService: DatabaseService) {}
     async generate(createTrainingInput: ICreateTrainingInput) {
         createTrainingInput.calculationIndex = !createTrainingInput.calculationIndex ? 0 : createTrainingInput.calculationIndex + 1;
-        if ((createTrainingInput.calculationIndex = 5)) {
+        if (createTrainingInput.calculationIndex === 5) {
             throw Error('imprssible to calculate training');
         }
 
@@ -100,7 +100,8 @@ export class TrainingsService {
         trainingFocus: TrainingFocus;
         availableTools: Equipment[];
     }): Promise<Prisma.TrainingExerciseCreateManyTrainingInput[]> {
-        const { trainingStages, swimmerId, trainingFocus, availableTools } = input;
+        const { trainingStages, swimmerId, availableTools } = input;
+        const trainingFocus = TrainingFocus[input.trainingFocus as keyof typeof TrainingFocus];
         const swimmer = await this.databaseService.swimmer.findUnique({
             where: {
                 id: swimmerId,
