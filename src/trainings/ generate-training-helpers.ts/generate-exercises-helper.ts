@@ -43,7 +43,9 @@ function generateExercisesForStage(input: { trainingStage: TrainingPart; possibl
     let currentTime = trainingTime;
 
     const trainingPart = trainingStage;
-    trainingPart.exercises = [];
+    if (!trainingPart.exercises) {
+        trainingPart.exercises = [];
+    }
 
     const weightenedExercises: Array<{
         exercise: Exercise;
