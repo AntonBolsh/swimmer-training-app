@@ -75,7 +75,7 @@ function generateExercisesForStage(input: { trainingStage: TrainingPart; possibl
     if (leftMeters < 50) {
         lengthOfExercise = 0;
         return { trainingPart, trainingTime: currentTime };
-    } else if (leftMeters < 200) {
+    } else if (leftMeters <= 200) {
         lengthOfExercise = Math.round(leftMeters / 100) * 100;
         trainingPart.exercises.push({
             exerciseId: selectedExercise.exercise.id,
@@ -86,7 +86,7 @@ function generateExercisesForStage(input: { trainingStage: TrainingPart; possibl
         return { trainingPart, trainingTime: currentTime };
     }
 
-    lengthOfExercise = [100, 200, 300, 400, 500][Math.floor(Math.random() * 4)];
+    lengthOfExercise = [200, 300, 400, 500][Math.floor(Math.random() * 4)];
     trainingPart.exercises.push({
         exerciseId: selectedExercise.exercise.id,
         length: lengthOfExercise,
