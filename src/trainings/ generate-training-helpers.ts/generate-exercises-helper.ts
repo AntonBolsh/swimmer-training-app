@@ -20,7 +20,7 @@ export function generateExercises(input: {
             trainingStage,
             possibleExercisesForStage,
             previosTrainingsExerciseIds,
-            swimmerPace,
+            swimmerPace: swimmerPace / 100, // Convert pace to meters per second
             trainingTime,
         });
 
@@ -38,8 +38,9 @@ function generateExercisesForStage(input: { trainingStage: TrainingPart; possibl
     trainingPart: TrainingPart;
     trainingTime: number;
 } {
-    const { trainingStage, possibleExercisesForStage, previosTrainingsExerciseIds, trainingTime, swimmerPace } = input;
+    const { trainingStage, possibleExercisesForStage, previosTrainingsExerciseIds, trainingTime } = input;
 
+    const swimmerPace = input.swimmerPace;
     let currentTime = trainingTime;
 
     const trainingPart = trainingStage;
@@ -69,10 +70,11 @@ function generateExercisesForStage(input: { trainingStage: TrainingPart; possibl
 
     let lengthOfExercise: number;
 
-    const leftMeters = (100 * (trainingPart.endTime - trainingTime)) / (swimmerPace * selectedExercise.exercise.paceMultiplier);
+    const leftMeters = (trainingPart.endTime - trainingTime) * swimmerPace * selectedExercise.exercise.paceMultiplier;
 
     if (leftMeters < 50) {
         lengthOfExercise = 0;
+        return { trainingPart, trainingTime: currentTime };
     } else if (leftMeters < 200) {
         lengthOfExercise = Math.round(leftMeters / 100) * 100;
         trainingPart.exercises.push({
